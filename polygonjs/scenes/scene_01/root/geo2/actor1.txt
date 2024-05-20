@@ -1,0 +1,52 @@
+// insert defines
+class CustomActorEvaluator extends ActorEvaluator {
+	// insert members
+
+	// /geo2/actor1/twoWaySwitch1
+	v_POLY_twoWaySwitch1_val = computed(() => (this.v_POLY_onObjectHover1_hovered.value ? 1.5 : 1.0));
+
+	// /geo2/actor1/onObjectHover1
+	v_POLY_onObjectHover1_hovered = ref(false);
+	v_POLY_onObjectHover1_Intersection = ref(null);
+
+	constructor(node, object3D) {
+		super(node, object3D);
+		// insert after constructor
+
+		// /geo2/actor1/onObjectHover1
+		addObjectToObjectHoveredCheck(this.object3D, this, {
+			priority: { blockObjectsBehind: true, skipIfObjectsInFront: false },
+			cpu: {
+				traverseChildren: true,
+				pointsThreshold: 0.1,
+				lineThreshold: 0.1,
+				intersectionRef: this.v_POLY_onObjectHover1_Intersection,
+			},
+			hover: {
+				hoveredStateRef: this.v_POLY_onObjectHover1_hovered,
+				onHoveredStateChange: this.onObjectHover1.bind(this),
+			},
+		});
+	}
+	// insert body
+
+	onObjectHover() {
+		this.onObjectHover1();
+	}
+	// /geo2/actor1/onObjectHover1
+	onObjectHover1() {
+		this.setObjectScale1(0);
+	}
+
+	// /geo2/actor1/setObjectScale1
+	setObjectScale1() {
+		setObjectScale(
+			this.object3D,
+			VAR__setObjectScale1_scale.set(1, 1, 1),
+			this.v_POLY_twoWaySwitch1_val.value,
+			1.0,
+			true
+		);
+	}
+}
+return CustomActorEvaluator;

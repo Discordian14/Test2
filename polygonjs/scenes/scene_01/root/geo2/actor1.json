@@ -1,0 +1,237 @@
+{
+	"type": "actor",
+	"nodes": {
+		"onTick1": {
+			"type": "onTick"
+		},
+		"setObjectPosition1": {
+			"type": "setObjectPosition",
+			"params": {
+				"position": {
+					"overriden_options": {}
+				},
+				"lerp": {
+					"overriden_options": {}
+				},
+				"updateMatrix": {
+					"overriden_options": {}
+				}
+			},
+			"maxInputsCount": 5,
+			"inputs": [
+				null,
+				null,
+				{
+					"index": 2,
+					"inputName": "position",
+					"node": "floatToVec3_1",
+					"output": "vec3"
+				}
+			]
+		},
+		"floatToVec3_1": {
+			"type": "floatToVec3",
+			"params": {
+				"x": {
+					"overriden_options": {}
+				},
+				"y": {
+					"overriden_options": {}
+				},
+				"z": {
+					"overriden_options": {}
+				}
+			},
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "x",
+					"node": "sin1",
+					"output": "sin"
+				},
+				{
+					"index": 1,
+					"inputName": "y",
+					"node": "sin1",
+					"output": "sin"
+				},
+				{
+					"index": 2,
+					"inputName": "z",
+					"node": "sin1",
+					"output": "sin"
+				}
+			]
+		},
+		"sin1": {
+			"type": "sin",
+			"params": {
+				"angle": {
+					"type": "float",
+					"default_value": 0,
+					"options": {
+						"spare": true,
+						"editable": false,
+						"computeOnDirty": true,
+						"dependentOnFoundParam": false
+					},
+					"overriden_options": {}
+				}
+			},
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "angle",
+					"node": "onTick1",
+					"output": "time"
+				}
+			],
+			"connection_points": {
+				"in": [
+					{
+						"name": "angle",
+						"type": "float",
+						"isArray": false
+					}
+				],
+				"out": [
+					{
+						"name": "sin",
+						"type": "float",
+						"isArray": false
+					}
+				]
+			}
+		},
+		"onObjectHover1": {
+			"type": "onObjectHover",
+			"maxInputsCount": 6
+		},
+		"setObjectScale1": {
+			"type": "setObjectScale",
+			"params": {
+				"scale": {
+					"overriden_options": {}
+				},
+				"mult": {
+					"raw_input": 1.5,
+					"overriden_options": {}
+				},
+				"lerp": {
+					"overriden_options": {}
+				},
+				"updateMatrix": {
+					"overriden_options": {}
+				}
+			},
+			"maxInputsCount": 6,
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "trigger",
+					"node": "onObjectHover1",
+					"output": "trigger"
+				},
+				null,
+				null,
+				{
+					"index": 3,
+					"inputName": "mult",
+					"node": "twoWaySwitch1",
+					"output": "val"
+				}
+			]
+		},
+		"twoWaySwitch1": {
+			"type": "twoWaySwitch",
+			"params": {
+				"condition": {
+					"type": "boolean",
+					"default_value": false,
+					"options": {
+						"spare": true,
+						"editable": false,
+						"computeOnDirty": true,
+						"dependentOnFoundParam": false
+					},
+					"overriden_options": {}
+				},
+				"ifTrue": {
+					"type": "float",
+					"default_value": 0,
+					"options": {
+						"spare": true,
+						"editable": true,
+						"computeOnDirty": true,
+						"dependentOnFoundParam": false
+					},
+					"raw_input": 1.5
+				},
+				"ifFalse": {
+					"type": "float",
+					"default_value": 0,
+					"options": {
+						"spare": true,
+						"editable": true,
+						"computeOnDirty": true,
+						"dependentOnFoundParam": false
+					},
+					"raw_input": 1
+				}
+			},
+			"inputs": [
+				{
+					"index": 0,
+					"inputName": "condition",
+					"node": "onObjectHover1",
+					"output": "hovered"
+				}
+			],
+			"connection_points": {
+				"in": [
+					{
+						"name": "condition",
+						"type": "boolean",
+						"isArray": false
+					},
+					{
+						"name": "ifTrue",
+						"type": "float",
+						"isArray": false
+					},
+					{
+						"name": "ifFalse",
+						"type": "float",
+						"isArray": false
+					}
+				],
+				"out": [
+					{
+						"name": "val",
+						"type": "float",
+						"isArray": false
+					}
+				]
+			}
+		}
+	},
+	"inputs": ["box1"],
+	"persisted_config": {
+		"variableNames": ["VAR__setObjectScale1_scale"],
+		"variables": [
+			{
+				"type": "Vector3",
+				"data": [0, 0, 0]
+			}
+		],
+		"functionNames": ["addObjectToObjectHoveredCheck", "setObjectScale"],
+		"serializedParamConfigs": [],
+		"eventDatas": [
+			{
+				"type": "pointermove",
+				"emitter": "canvas",
+				"jsType": "onObjectHover"
+			}
+		]
+	}
+}
